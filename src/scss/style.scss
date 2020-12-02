@@ -1,0 +1,15 @@
+@import '_mixins.scss';
+@import '_fonts.scss';
+@import '_block.scss';
+
+
+.container{
+    display: flex;
+    transition: all 1 ease-out;
+    width:800px;
+    margin: 20px auto;
+    &__child{
+        background-color:black;
+        color:red;
+    }
+}
