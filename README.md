@@ -76,15 +76,23 @@ ____
 
 ### 5. scripts
 ____
-Все _.js_ файлы __должны__ подключаться в одном главном файле __scripts.js__ с помощью пакета __gulp-include__.
+Все _.js_ файлы __объединяются__ в один файл .min.js с помощью пакета __gulp-concat__ и минифицируются с помощью __gulp-terser__.
 
-Пример подключения несколько файлов _.js_ в главном файле __scripts.js__:
-```
-//=include script1.js
-//=include script2.js
-```
 
-Таск берет главный _scripts.js_, собирает в нем ранее подключенные файлы с помощью __//=include__, минифицирует, удаляет комментарии, создает sourcemaps, переименовывает в _scripts.min.js_ и помещает в _path.build.js_
+Таск берет все скрипты по алфавитному порядку, конкатинирует, минифицирует, удаляет комментарии, создает sourcemaps, переименовывает в _scripts.min.js_ и помещает в _path.build.js_
+
+Если нужно указать определенный порядок конкатенации скриптов, можно сделать так:
+```
+function scripts(){
+ return src([path.source.jquery, sourceFolder + '/js/**/_*.js', sourceFolder + '/js/**/main.js'], {
+        allowEmpty:true
+   })
+        .pipe(...)
+        ...     
+        .pipe(dest(path.build.js))
+        .pipe(browserSync.stream());
+}
+```
 
 ### 6. scriptsbuild
 ____
